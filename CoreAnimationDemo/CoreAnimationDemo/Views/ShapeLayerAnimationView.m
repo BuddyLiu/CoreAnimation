@@ -89,7 +89,11 @@ static CGFloat unit = 60;
     
     //时针
     CGPoint hourStartPoint = CGPointMake(rect.size.height/2.0, rect.size.height/2.0);
-    CGPoint hourEndPoint = [self getTimerPointWithRadius:rect.size.height/2.0 - 80 angle:[self getAngleWithFormat:@"hh"] + [self getAngleWithFormat:@"mm"]/12.0];
+    CGFloat angleHour = [self getAngleWithFormat:@"hh"];
+    if(angleHour >= 2*M_PI) {
+        angleHour = 0;
+    }
+    CGPoint hourEndPoint = [self getTimerPointWithRadius:rect.size.height/2.0 - 80 angle:angleHour + [self getAngleWithFormat:@"mm"]/12.0];
     CAShapeLayer *shapeLayerHour = [self createLineShapeLayerWithStartPoint:CGPointZero
                                                                    endPoint:hourEndPoint
                                                                 anchorPoint:CGPointMake(0.5, 0.5)
